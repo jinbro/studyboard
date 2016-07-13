@@ -1,0 +1,25 @@
+<div class="col-md-6 col-md-offset-3" style="margin-top: 50px;">
+    
+    <!-- Daily Post -->
+    
+    <div class="well">
+        <form action="/billboard/<%= @post.id %>/editing" method="post"> 
+        
+        <center><h2>게시글 수정</h2></center>
+        
+        <hr style="height:2px; color: #757575; background-color: #757575;">
+        <hr>
+        <b>제목</b>
+        <input name="title" type="text" class="form-control" value="<%= @post.title %>"><br>
+        <b>내용</b>
+        <textarea name="content" class="form-control" rows="10" cols="10"><%= @post.content %></textarea>
+        
+        <center>
+            <button type="submit" class="btn btn-default" style="margin-top: 20px;">수정완료</button>
+        </center>
+        </form>
+    </div>
+    
+    
+    
+</div>

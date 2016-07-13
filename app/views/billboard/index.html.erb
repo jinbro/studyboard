@@ -1,0 +1,99 @@
+<!-- daily post add button / admin select button -->
+<% unless @user_name == "admin" %>
+<center>
+    <button class="btn btn-default btn-regist" data-toggle="modal" data-target="#myModal">등록하기</button>
+</center>
+
+<% else %>
+<center>
+<div style="margin-top: 30px;">
+    <select class="form-control who_timeline" style="width: 150px;">
+        <option value="all" selected="selected">모두</option>
+        <option value="mijeong">므즈</option>
+        <option value="ahyun">아현</option>
+        <option value="cheol">철</option>
+    </select>
+</div>
+</center>
+<% end %>
+
+<div class="col-md-8 col-md-offset-2" style="margin-top: 50px;">
+    
+    <!-- daily post -->
+    <% @user_content.each do |p| %>
+    <div class="well <%= p.user_name %>">
+        <div class="row">
+            <div class="col-md-3">
+                <% if p.user_name == "mijeong" %>
+                    <span style="line-height:3em">작성자 : 미정</span>
+                <% elsif p.user_name == "ahyun" %>
+                    <span style="line-height:3em">작성자 : 아현</span>
+                <% else %>
+                    <span style="line-height:3em">작성자 : 철</span>
+                <% end %>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <% unless @user_name == "admin" %>
+                <span style="float:right;"><form action="/billboard/<%= p.id %>/edit" method="get"> <button type="submit" class="btn btn-default">수정</button> </form></span>
+                <% end %>
+                <span style="float:right; line-height:3em; margin-right:10px;"><%= p.created_at.in_time_zone("Asia/Seoul").strftime("%Y년 %m월 %d일 %H시%M분") %></span>
+                
+            </div>
+        </div>
+        <hr style="height:2px; color: #757575; background-color: #757575;">
+        
+        <center><p>제목 : <%= p.title %></p></center>
+        <hr>
+        <div style="padding: 10px;">
+            <p>내용 : <%= p.content %></p>
+        </div>
+        
+        <!-- comment area -->
+        <hr style="height:2px; color: #757575; background-color: #757575;">
+        <p>댓글</p>
+        
+        <div style="margin-top: 10px;">
+        
+            <% p.comments.each do |c| %>
+            <div class="row">
+                <div class="col-md-4 col-xs-4">
+                    <%= c.user_name %>
+                </div>
+                <div class="col-md-8 col-xs-8">
+                    <%= c.content %>
+                </div>
+            </div>
+            <% end %>
+            
+        </div>
+       
+        <div class="comment_area">
+            <div class="row">
+                <div class="col-md-4 col-xs-4 comment_<%=p.id %>_name">
+                    
+                </div>
+                <div class="col-md-8 col-xs-8 comment_<%=p.id %>_content">
+
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- comment input area -->
+        <hr style="height:2px; color: #757575; background-color: #757575;">
+        <div class="row">
+            <div class="col-md-3 col-xs-3">
+                <input id="comment_<%= p.id %>_name" type="text" class="form-control" value="<%= current_user.email %>" disabled>
+            </div>
+            <div class="col-md-7 col-xs-7">
+                <input id="comment_<%= p.id %>_content" type="text" class="form-control" placeholder="코멘트 내용">
+            </div>
+            <div class="col-md-2 col-xs-2">
+                <button value="<%= p.id %>" type="submit" class="btn btn-default btn-reply">입력</button>
+            </div>
+        </div>
+    </div>
+    <% end %>
+    
+</div>
+

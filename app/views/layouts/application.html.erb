@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <title>하루공부일기</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+  <%= csrf_meta_tags %>
+  
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
+
+<body id="page-top" class="index">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <!-- Brand -->
+      <div class="navbar-header  page-scroll">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">STUDY ROOM :: 일기쓰자</a>
+      </div>
+  
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <!-- if login? see hidden my_menu but admin account see all menu-->
+          <% if user_signed_in? %>
+            <li><a id="my_menu" href="/users/edit"><%= @user_display_name %></a></li>
+          
+            <!-- logout tab -->
+            <li><a href="/users/sign_out">Logout</a></li>
+          <% end %>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<section id="portfolio">
+  <div class="container" style="margin-top: 50px;">    
+  
+    <%= yield %>
+    
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="text-center">                           
+  <div class="footer-below">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          Copyright &copy; 하루공부일기 2016
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+<!-- post input modal  -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <form action="/billboard/create" method="post">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel"><%= @user_display_name %> 오늘 뭐배웠습니까?</h4>
+        </div>
+        <div class="modal-body">
+          <input name="user_name" type="hidden" class="form-control" value="<%= @user_name %>"><br>
+          <b>제목</b>
+          <input name="title" type="text" class="form-control" placeholder="제목을 입력하세요."><br>
+          <b>내용</b>
+          <textarea name="content" class="form-control" placeholder="내용을 입력하세요." rows="10" cols="10"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+          <button type="submit" class="btn btn-primary">저장</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
