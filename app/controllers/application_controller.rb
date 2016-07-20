@@ -16,17 +16,17 @@ class ApplicationController < ActionController::Base
       admin = "admin@ksu.ac.kr"
       
       if user_email == mijeong
-        @user_display_name = "ㅁㅈ킹ㅁㅈ"
+        @user_display_name = "미정"
         @user_name = "mijeong"
         @user_content = Post.where(user_name: "mijeong").reverse
         
       elsif user_email == ahyun
-        @user_display_name = "명실상부_에이스"
+        @user_display_name = "아현"
         @user_name = "ahyun"
         @user_content = Post.where(user_name: "ahyun").reverse
         
       elsif user_email == cheol
-        @user_display_name = "군대가자"
+        @user_display_name = "철"
         @user_name = "cheol"
         @user_content = Post.where(user_name: "cheol").reverse
       else
